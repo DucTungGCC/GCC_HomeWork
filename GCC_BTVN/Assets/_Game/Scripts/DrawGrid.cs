@@ -13,7 +13,7 @@ public class DrawGrid : MonoBehaviour
     [SerializeField] private Vector2 cellSize;
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject Block;
-    private Vector3 mousePosition;
+    private Vector3 _mousePosition;
 
     void Start()
     {
@@ -30,8 +30,18 @@ public class DrawGrid : MonoBehaviour
 
     private void MakeChoose()
     {
-        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2Int blockPos = new Vector2Int((int)(mousePosition.x / cellSize.x), (int)(mousePosition.y / cellSize.y));
+        // Lay toa do the gioi
+        _mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        
+        // Lấy tọa độ của x và y
+        int x = Mathf.FloorToInt(_mousePosition.x / cellSize.x);
+        int y = Mathf.FloorToInt(_mousePosition.y / cellSize.y);
+        Vector2Int blockPos = new Vector2Int(x, y);
+        
+        // Debug blockPos
+        Debug.Log(blockPos.ToString());
+        
+        // Kiem tra va Spawn/Destroy block neu co/chua co block tai vi tri bam chuot
         Collider2D hit = Physics2D.OverlapPoint(new Vector3(blockPos.x * cellSize.x + cellSize.x / 2, blockPos.y * cellSize.y+ cellSize.y / 2, 0));
         if(hit == null)
         {
