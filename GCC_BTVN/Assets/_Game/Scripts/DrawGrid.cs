@@ -13,22 +13,32 @@ public class DrawGrid : MonoBehaviour
     [SerializeField] private Vector2 cellSize;
     [SerializeField] private Camera cam;
     [SerializeField] private GameObject Block;
-
-    private void Start()
-    {
-        for (int i = 0; i < gridSize.y; i++)
-        {
-            for (int j = 0; j < gridSize.x; j++)
-            {
-                Instantiate(Block,new Vector3(i * cellSize.x + cellSize.x/2, j * cellSize.y + cellSize.y /2, 0), Quaternion.Inverse(cam.transform.rotation), this.transform);
-            }
-        }
-    }
-
+    private Vector3 mousePosition;
+    
     void Update()
     {
         cam.gameObject.transform.position = new Vector3((float)gridSize.x * cellSize.x / 2, (float)gridSize.y * cellSize.y / 2, cam.transform.position.z);
+        if (Input.GetMouseButtonDown(0))
+        {
+            mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2Int blockPos = new Vector2Int((int)(mousePosition.x / cellSize.x), (int)(mousePosition.y / cellSize.y));
+            Collider2D hit = Physics2D.OverlapPoint(new Vector3(blockPos.x * cellSize.x, blockPos.y * cellSize.y, 0));
+            if(hit == null)
+            {
+                if (blockPos.x >= 0 && blockPos.y >= 0 && blockPos.x < gridSize.x && blockPos.y < gridSize.y)
+                {
+                    Instantiate(Block,
+                        new Vector3(blockPos.x * cellSize.x + cellSize.x / 2, blockPos.y * cellSize.y + cellSize.y / 2),
+                        Quaternion.identity);
+                }
+            }
+            else
+            {
+                hit.gameObject.SetActive(false);
+            }
+        }
     }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
