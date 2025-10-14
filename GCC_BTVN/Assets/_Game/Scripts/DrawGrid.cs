@@ -47,7 +47,7 @@ public class DrawGrid : MonoBehaviour
         {
             if (blockPos.x >= 0 && blockPos.y >= 0 && blockPos.x < gridSize.x && blockPos.y < gridSize.y)
             {
-                Instantiate(Block, new Vector3(blockPos.x * cellSize.x + cellSize.x / 2, blockPos.y * cellSize.y + cellSize.y / 2), Quaternion.identity);
+                Instantiate(Block, new Vector3(blockPos.x * cellSize.x + cellSize.x / 2, blockPos.y * cellSize.y + cellSize.y / 2), Quaternion.identity, this.transform);
             }
         }
         else
