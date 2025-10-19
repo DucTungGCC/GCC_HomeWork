@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    InputAction inputMovement;
-    InputAction inputJump;
+    InputAction _inputMovement;
+    InputAction _inputJump;
     [SerializeField] private float _speed = 8f;
     [SerializeField] private float _jumpForce = 12f;
     [SerializeField] private Rigidbody2D _rb;
@@ -19,8 +19,8 @@ public class PlayerMovement : MonoBehaviour
     private float _moveDirection;
     private void Start()
     {
-        inputMovement = InputSystem.actions.FindAction("Horizontal");
-        inputJump = InputSystem.actions.FindAction("Jump");
+        _inputMovement = InputSystem.actions.FindAction("Horizontal");
+        _inputJump = InputSystem.actions.FindAction("Jump");
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        _moveDirection = inputMovement.ReadValue<float>();
+        _moveDirection = _inputMovement.ReadValue<float>();
         _rb.velocity = new Vector2(_moveDirection * _speed, _rb.velocity.y);
         if (_moveDirection > 0)
         {
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             bufferJump -= Time.deltaTime;
         }
-        if (inputJump.WasPressedThisFrame())
+        if (_inputJump.WasPressedThisFrame())
         {
             bufferJump = 0.1f;
         }
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             bufferJump = 0;
             caiyoteJump = 0;
         }
-        if (!isGrounded() && inputJump.WasReleasedThisFrame() && _rb.velocity.y > 0)
+        if (!isGrounded() && _inputJump.WasReleasedThisFrame() && _rb.velocity.y > 0)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, 0.4f * _rb.velocity.y);
         }
@@ -92,10 +92,10 @@ public class PlayerMovement : MonoBehaviour
 
     bool CanJump()
     {
-        return ((isGrounded() && bufferJump > 0) || (!isGrounded() && caiyoteJump > 0 && inputJump.WasPressedThisFrame()));
+        return ((isGrounded() && bufferJump > 0) || (!isGrounded() && caiyoteJump > 0 && _inputJump.WasPressedThisFrame()));
     }
 
-    void JumpCurve()
+    void JumpCurve() // Roi se nhanh hon khi nhay
     {
         if (_rb.velocity.y < 0)
         {
