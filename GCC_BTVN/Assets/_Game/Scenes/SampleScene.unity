@@ -189,21 +189,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656d0a4a25ed3954281a9dcff979f24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tf: {fileID: 193747887}
-  _cam: {fileID: 519420031}
-  _layerMask:
+  tf: {fileID: 193747887}
+  cam: {fileID: 519420031}
+  layerMask:
     serializedVersion: 2
     m_Bits: 64
-  _layerOption:
+  layerOption:
     serializedVersion: 2
     m_Bits: 128
-  _inputManager: {fileID: 1778545965}
   eventWin: {fileID: 1907902924}
-  Options:
+  options:
   - {fileID: 1939999796}
   - {fileID: 316547779}
   - {fileID: 329492177}
-  count: 0
 --- !u!4 &193747887
 Transform:
   m_ObjectHideFlags: 0
@@ -3089,6 +3087,7 @@ MonoBehaviour:
   _currentPoint: {x: 0, y: 0}
   _currentScreenPoint: {x: 0, y: 0}
   inputState: 0
+  cam: {fileID: 0}
 --- !u!4 &1778545966
 Transform:
   m_ObjectHideFlags: 0
