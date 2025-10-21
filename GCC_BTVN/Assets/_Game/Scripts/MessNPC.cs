@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActionNPC : MonoBehaviour
+public class MessNPC : MonoBehaviour
 {
     [SerializeField] private Image MessengeBox;
     public bool wasVisited = false;
@@ -44,3 +44,4 @@ public class ActionNPC : MonoBehaviour
         StopAllCoroutines();
     }
 }
+

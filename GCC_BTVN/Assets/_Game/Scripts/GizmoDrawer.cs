@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GizmoDrawer : MonoBehaviour
@@ -139,4 +140,13 @@ public class GizmoDrawer : MonoBehaviour
         return true;
     }
 
+    private void OnDisable() // Tranh viec dang keo thi di ra khoi object
+    {
+        if (_onClicked && _selectedBlock  != null)
+        {
+            _selectedBlock.position = _lastPosition;
+            _selectedBlock = null;
+            _onClicked = false;
+        }
+    }
 }

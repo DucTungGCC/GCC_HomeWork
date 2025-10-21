@@ -16,19 +16,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask layerGrounded;
     [SerializeField] private float bufferJump = 0;
     [SerializeField] private float caiyoteJump = 0;
-    private float _moveDirection;
-    private void Start()
+    [SerializeField] private Animator _animator;
+    public float _moveDirection;
+
+    private void Awake()
     {
+        if(_animator == null)
+            _animator = GetComponent<Animator>();
         _inputMovement = InputSystem.actions.FindAction("Horizontal");
         _inputJump = InputSystem.actions.FindAction("Jump");
     }
+    
 
     private void Update()
     {
         Movement();
         Jump();
     }
-
+    
+    #region MovementLogic
     void Movement()
     {
         _moveDirection = _inputMovement.ReadValue<float>();
@@ -43,8 +49,9 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
-
-    bool isGrounded()
+    #endregion
+    #region  JumpLogic
+    public bool isGrounded()
     {
         return Physics2D.OverlapCapsule(Grounded.transform.position, new Vector2(0.4f, 0.12f),
             CapsuleDirection2D.Horizontal, 0f, layerGrounded);
@@ -76,7 +83,9 @@ public class PlayerMovement : MonoBehaviour
     
     void Jump()
     {
-        jumpStatus();
+        jumpStatus(); // Cap nhat cac trang thai cua Jump (bufferJump hay caiyoteJump)
+        
+        // Thuc hien Jump
         if (CanJump())
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
@@ -92,8 +101,11 @@ public class PlayerMovement : MonoBehaviour
 
     bool CanJump()
     {
+        // Neu bufferJump van con thi van nhay duoc || neu an nhay ma caiyoteJump > 0 van nhay duoc
         return ((isGrounded() && bufferJump > 0) || (!isGrounded() && caiyoteJump > 0 && _inputJump.WasPressedThisFrame()));
     }
+    // bufferJump : Nhay som
+    // caiyoteJump : nhay hut doc tuong
 
     void JumpCurve() // Roi se nhanh hon khi nhay
     {
@@ -106,4 +118,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.gravityScale = 3f;
         }
     }
+    #endregion
+    
+
 }

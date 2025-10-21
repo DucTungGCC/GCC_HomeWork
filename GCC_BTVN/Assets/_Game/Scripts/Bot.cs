@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private ActionNPC controller; // Tat bat chat
-    [SerializeField] private Rigidbody2D rigidbody2D;
+    [SerializeField] private MessNPC controller; // Tat bat chat
+    [SerializeField] private Rigidbody2D _rb;
 
+    private void Awake()
+    {
+        if(_rb == null)
+            _rb = GetComponent<Rigidbody2D>();
+    }
+
+    
     IEnumerator Die()
     {
         yield return new WaitForSeconds(5f);
-        rigidbody2D.gameObject.SetActive(false);
+        _rb.gameObject.SetActive(false);
     }
     private void Update()
     {
-        if (rigidbody2D.velocity.magnitude > 0.3f)
+        if (_rb.velocity.magnitude > 0.3f)
         {
             controller.TakeDamage();
             StartCoroutine(Die());
