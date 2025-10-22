@@ -25,7 +25,8 @@ public class UnlockGame : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Minigame.SetActive(false);
+            if(Minigame != null)
+                Minigame.SetActive(false);
         }
     }
 }

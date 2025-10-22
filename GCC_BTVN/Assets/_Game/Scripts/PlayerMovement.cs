@@ -53,8 +53,9 @@ public class PlayerMovement : MonoBehaviour
     #region  JumpLogic
     public bool isGrounded()
     {
-        return Physics2D.OverlapCapsule(Grounded.transform.position, new Vector2(0.4f, 0.12f),
-            CapsuleDirection2D.Horizontal, 0f, layerGrounded);
+        return (Physics2D.OverlapCapsule(Grounded.transform.position, new Vector2(0.4f, 0.12f),
+            CapsuleDirection2D.Horizontal, 0f, layerGrounded));
+
     }
 
     void jumpStatus() // Ham cap nhat cac trang thai cua nhay
