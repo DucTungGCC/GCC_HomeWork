@@ -147,6 +147,7 @@ public class GizmoDrawer : MonoBehaviour
             _selectedBlock.position = _lastPosition;
             _selectedBlock = null;
             _onClicked = false;
+            StopAllCoroutines();
         }
     }
 }

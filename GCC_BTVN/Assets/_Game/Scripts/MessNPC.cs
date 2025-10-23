@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MessNPC : MonoBehaviour
 {
-    [SerializeField] private Image MessengeBox;
+    [SerializeField] private GameObject MessengeBox;
     public bool wasVisited = false;
 
     private void Start()
