@@ -7,7 +7,8 @@ public class Bot : MonoBehaviour
 {
     [SerializeField] private MessNPC controller; // Tat bat chat
     [SerializeField] private Rigidbody2D _rb;
-
+    [SerializeField] private Transform _tf=> transform;
+    [SerializeField] private float attackForce = 2f;
     private void Awake()
     {
         if(_rb == null)
@@ -32,5 +33,11 @@ public class Bot : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+    }
+
+    public void OnAttack(Vector2 OtherAttacker)
+    {
+        Debug.Log("Toi bi ngu");
+        _rb.AddForce(((- OtherAttacker + (Vector2)(_tf.position)).normalized + Vector2.up * 0.5f) * attackForce, ForceMode2D.Impulse);
     }
 }
