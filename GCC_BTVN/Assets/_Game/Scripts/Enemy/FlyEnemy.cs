@@ -54,8 +54,7 @@ public class FlyEnemy : Enemy
 
     protected override void CheckWall()
     {
-        if (Physics2D.OverlapBox(_wallCheck.transform.position, new Vector2(2f, 2f),
-                 0f, _groundMask))
+        if (Physics2D.Raycast(_tf.position, Vector2.right * direction, 3f, _groundMask))
         {
             _sr.flipX = !_sr.flipX;
             direction = _sr.flipX ? -1f : 1f;

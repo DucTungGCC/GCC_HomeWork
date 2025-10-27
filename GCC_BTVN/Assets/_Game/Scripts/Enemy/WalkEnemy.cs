@@ -47,8 +47,7 @@ public class WalkEnemy : Enemy
 
     protected override void CheckWall()
     {
-        if (Physics2D.OverlapCapsule(_wallCheck.transform.position, new Vector2(0.5f, 0.75f),
-                CapsuleDirection2D.Vertical, 0f, _groundMask))
+        if (Physics2D.Raycast(_tf.position, Vector2.right * direction, 3f, _groundMask))
         {
             _sr.flipX = !_sr.flipX;
             direction = _sr.flipX ? -1f : 1f;
