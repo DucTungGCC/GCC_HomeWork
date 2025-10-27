@@ -17,9 +17,13 @@ public class WalkEnemy : Enemy
 
     void Update()
     {
-        if (PlayerIsHere())
+        if (PlayerIsHere() && Hp > 0)
         {
             Move();
+        }
+        else if(Hp <= 0)
+        {
+            Death();
         }
     }
     
@@ -37,6 +41,8 @@ public class WalkEnemy : Enemy
     {
         _rb.velocity = Vector2.zero;
         _rb.AddForce(((- dir + (Vector2)(_tf.position)).normalized + Vector2.up * 0.5f) * attackForce, ForceMode2D.Impulse);
+        Hp -= 20;
+        if(Hp > 0)Debug.Log("Con lai " + Hp + " Hp");
     }
 
     void CheckWall()
@@ -49,16 +55,11 @@ public class WalkEnemy : Enemy
             _wallCheck.transform.position = new Vector3(direction + _tf.position.x , _wallCheck.transform.position.y, _wallCheck.transform.position.z);
         }
     }
-    
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag("Ground"))
-    //     {
-    //         _sr.flipX = !_sr.flipX;
-    //         direction *= -1;
-    //         _wallCheck.transform.position = new Vector3(direction, _wallCheck.transform.position.y, _wallCheck.transform.position.z);
-    //     }
-    // }
+
+    private void Death()
+    {
+        _sr.color = Color.red;
+    }
 
     private bool PlayerIsHere()
     {
