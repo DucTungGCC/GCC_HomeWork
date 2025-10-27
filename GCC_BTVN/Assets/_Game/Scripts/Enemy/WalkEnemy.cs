@@ -45,7 +45,7 @@ public class WalkEnemy : Enemy
         if(Hp > 0)Debug.Log("Con lai " + Hp + " Hp");
     }
 
-    void CheckWall()
+    protected override void CheckWall()
     {
         if (Physics2D.OverlapCapsule(_wallCheck.transform.position, new Vector2(0.5f, 0.75f),
                 CapsuleDirection2D.Vertical, 0f, _groundMask))
