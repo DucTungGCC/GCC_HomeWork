@@ -43,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator CooldownAttack()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         canAttack = true;
         isAttacking = false;
         attackRange.enabled = false;
@@ -53,13 +53,22 @@ public class PlayerAttack : MonoBehaviour
         attackRange.enabled = true;
         ((BoxCollider2D)attackRange).offset = new Vector2(attackDirection, 0);
     }
-
+    
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // TODO : fix lại cái đống này
         Bot bot = other.gameObject.GetComponent<Bot>();
         if (bot != null)
         {
             bot.OnAttack(new Vector2(_tf.position.x, _tf.position.y));
+        }
+
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            Debug.Log("Danh Quai");
+            enemy.OnAttack(new Vector2(_tf.position.x, _tf.position.y));
         }
     }
 }
