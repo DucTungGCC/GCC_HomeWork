@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - floor
   - Item
+  - Ground
   layers:
   - Default
   - TransparentFX
