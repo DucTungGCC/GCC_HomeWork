@@ -17,6 +17,7 @@ public class WalkEnemy : Enemy
 
     void Update()
     {
+        if (GameManager.isPaused) return;
         if (PlayerIsHere() && Hp > 0)
         {
             Move();

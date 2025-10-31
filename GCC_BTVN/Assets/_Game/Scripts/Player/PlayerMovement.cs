@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.isPaused) return;
         Movement();
         Jump();
     }
