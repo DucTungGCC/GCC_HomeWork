@@ -17,6 +17,13 @@ public class Floor : MonoBehaviour
     {
         firstPos = _tf.position;
     }
+
+    void Reset()
+    {
+        isFirst = true;
+        _tf.position = firstPos;
+        _tf.localScale = Vector3.one;
+    }
     
     
     
@@ -90,5 +97,6 @@ public class Floor : MonoBehaviour
     {
         StopAllCoroutines();
         // TODO : Sua thanh chuyen ve trang thai ban dau
+        Reset();
     }
 }
